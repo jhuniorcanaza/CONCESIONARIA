@@ -65,18 +65,15 @@ class DatabaseSeeder extends Seeder
         // запуск других сидеров
         // $this->call([UsersSeeder::class]);
 
-        CarType::factory()
-            ->sequence(
-                ['name' => 'Sedan'], 
-                ['name' => 'SUV'], 
-                ['name' => 'Hatchback'], 
-                ['name' => 'Truck'], 
-                ['name' => 'Van'], 
-                ['name' => 'Coupe'], 
-                ['name' => 'Crossover'], 
-            )
-            ->count(7)
-            ->create();
+        // Actualizar tipos de vehículo a los 3 requeridos
+        $typeNames = ['Auto', 'Motocicleta', 'Maquinaria Pesada'];
+        foreach ($typeNames as $i => $name) {
+            CarType::updateOrCreate(['id' => $i + 1], ['name' => $name]);
+        }
+        // Reasignar autos con tipos antiguos (4-7) a Auto
+        Car::where('car_type_id', '>', 3)->update(['car_type_id' => 1]);
+        // Eliminar tipos sobrantes
+        CarType::where('id', '>', 3)->delete();
 
         FuelType::factory()
             ->sequence(
@@ -163,9 +160,42 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        // User::factory()
-        //     ->count(3)
-        //     ->create();
+        // Admin user
+        if (!\App\Models\User::where('email', 'admin@ruedas.store')->exists()) {
+            User::factory()
+                ->state(['name' => 'Admin', 'email' => 'admin@ruedas.store', 'role' => 'admin'])
+                ->has(
+                    Car::factory()->count(rand(5, 20))
+                        ->hasFeatures()
+                        ->has(
+                            CarImage::factory()
+                                ->count(5)
+                                ->sequence(...array_map(function ($i) {
+                                    return ['position' => $i];
+                                    }, range(1, 5))
+                                ),
+                            'images'
+                        ),
+                    'favoriteCars')
+                ->create();
+        }
+
+        User::factory()
+            ->count(10)
+            ->has(
+                Car::factory()->count(rand(5, 20))
+                    ->hasFeatures()
+                    ->has(
+                        CarImage::factory()
+                            ->count(5)
+                            ->sequence(...array_map(function ($i) {
+                                return ['position' => $i];
+                                }, range(1, 5))
+                            ),
+                        'images'
+                    ),
+                'favoriteCars')
+            ->create();
 
         User::factory()
             ->count(10)
