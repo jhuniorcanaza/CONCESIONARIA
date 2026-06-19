@@ -8,9 +8,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $cars = Car::latest()->where('published_at', '<', now())
-            // ->with(['primaryImage', 'maker', 'model', 'city', 'carType', 'fuelType'])
-            // added to the model
+        $cars = Car::latest()
+            ->where('published_at', '<', now())
+            ->where('is_approved', true)
             ->paginate(15);
         return view('home.index', ['cars' => $cars]);
     }
