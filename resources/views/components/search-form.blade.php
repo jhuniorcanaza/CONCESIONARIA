@@ -15,10 +15,10 @@
                 <x-ui.search-select id="modelSelect" name="model_id" :elements="$models" title="Model" parent="maker_id"/>            
             </div>
             <div>
-                <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="State/Region"/>                
+                <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="Departamento"/>                
             </div>
             <div>
-                <x-ui.search-select id="citySelect" name="city_id" :elements="$cities" title="City" parent="state_id"/>            
+                <x-ui.search-select id="citySelect" name="city_id" :elements="$cities" title="Ciudad o Municipio" parent="state_id"/>            
             </div>
             <div>
                 <x-ui.search-select id="carTypeSelect" name="car_type_id" :elements="$types" title="Type"/>                        
@@ -96,7 +96,7 @@
             </div>
             <div class="form-group">
                 <label class="mb-medium">State</label>
-                <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="State/Region"  :filtered="$filtered['state_id'] ?? null" />
+                <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="Departamento  :filtered="$filtered['state_id'] ?? null" />
             </div>
             <div class="form-group">
                 <label class="mb-medium">City</label>

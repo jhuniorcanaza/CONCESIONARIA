@@ -102,30 +102,17 @@ class DatabaseSeeder extends Seeder
         // ];            
         
         $states = [
-            'Vinnytsia Oblast' => ['Vinnytsia', 'Zhmerynka', 'Mohyliv-Podilskyi', 'Koziatyn', 'Khmelnyk'],
-            'Volyn Oblast' => ['Lutsk', 'Kovel', 'Novovolynsk', 'Volodymyr', 'Rozhyshche'],
-            'Dnipropetrovsk Oblast' => ['Dnipro', 'Kryvyi Rih', 'Kamianske', 'Nikopol', 'Pavlohrad'],
-            'Donetsk Oblast' => ['Donetsk', 'Mariupol', 'Sloviansk', 'Kramatorsk', 'Bakhmut'],
-            'Zhytomyr Oblast' => ['Zhytomyr', 'Berdychiv', 'Korosten', 'Novohrad-Volynskyi', 'Malyn'],
-            'Zakarpattia Oblast' => ['Uzhhorod', 'Mukachevo', 'Berehove', 'Khust', 'Vynohradiv'],
-            'Zaporizhzhia Oblast' => ['Zaporizhzhia', 'Melitopol', 'Berdiansk', 'Enerhodar', 'Tokmak'],
-            'Ivano-Frankivsk Oblast' => ['Ivano-Frankivsk', 'Kalush', 'Kolomyia', 'Dolyna', 'Tlumach'],
-            'Kyiv Oblast' => ['Kyiv', 'Bila Tserkva', 'Brovary', 'Fastiv', 'Boryspil'],
-            'Kirovohrad Oblast' => ['Kropyvnytskyi', 'Oleksandriia', 'Svitlovodsk', 'Znamianka', 'Haivoron'],
-            'Luhansk Oblast' => ['Luhansk', 'Sievierodonetsk', 'Lysychansk', 'Rubizhne', 'Alchevsk'],
-            'Lviv Oblast' => ['Lviv', 'Drohobych', 'Chervonohrad', 'Sambir', 'Stryi'],
-            'Mykolaiv Oblast' => ['Mykolaiv', 'Pervomaisk', 'Yuzhnoukrainsk', 'Voznesensk', 'Ochakiv'],
-            'Odesa Oblast' => ['Odesa', 'Izmail', 'Chornomorsk', 'Yuzhne', 'Bilhorod-Dnistrovskyi'],
-            'Poltava Oblast' => ['Poltava', 'Kremenchuk', 'Lubny', 'Myrhorod', 'Horishni Plavni'],
-            'Rivne Oblast' => ['Rivne', 'Dubno', 'Varash', 'Kostopil', 'Zdolbuniv'],
-            'Sumy Oblast' => ['Sumy', 'Konotop', 'Shostka', 'Okhtyrka', 'Romny'],
-            'Ternopil Oblast' => ['Ternopil', 'Chortkiv', 'Kremenets', 'Berezhany', 'Zbarazh'],
-            'Kharkiv Oblast' => ['Kharkiv', 'Lozova', 'Izium', 'Chuhuiv', 'Kupiansk'],
-            'Kherson Oblast' => ['Kherson', 'Nova Kakhovka', 'Henichesk', 'Kakhovka', 'Skadovsk'],
-            'Khmelnytskyi Oblast' => ['Khmelnytskyi', 'Kamianets-Podilskyi', 'Shepetivka', 'Slavuta', 'Netishyn'],
-            'Cherkasy Oblast' => ['Cherkasy', 'Uman', 'Smila', 'Zolotonosha', 'Kaniv'],
-            'Chernihiv Oblast' => ['Chernihiv', 'Nizhyn', 'Pryluky', 'Bakhmach', 'Novhorod-Siverskyi'],
-            'Chernivtsi Oblast' => ['Chernivtsi', 'Novoselytsia', 'Storozhynets', 'Kitsman', 'Khotyn'],
+            
+            'La Paz' => ['El Alto', 'Viacha', 'Caranavi', 'Coripata','Chulumani', 'Sorata', 'Achocalla', 'Laja', 'Mecapaca'],
+            'Santa Cruz' => ['Montero', 'Warnes', 'La Guardia','Cotoca', 'San Ignacio de Velasco', 'Roboré', 'Camiri','San José de Chiquitos', 'Pailón'],
+            'Cochabamba' => ['Quillacollo', 'Mizque','Sacaba', 'Cliza', 'Tiquipaya', 'Colcapirhua', 'Punata', 'Arani'],
+            'Oruro' => ['Huanuni', 'Machacamarca', 'Challapata','Caracollo', 'Poopó', 'Eucaliptus'],
+            'Potosí' => ['Uyuni', 'Villazón', 'Tupiza', 'Betanzos', 'Colquechaca', 'Puna'],
+            'Tarija' => ['Yacuiba', 'Villamontes', 'Bermejo','Entre Ríos', 'Caraparí', 'Uriondo'],
+            'Chuquisaca' => ['Sucre', 'Monteagudo', 'Camargo', 'Azurduy','Tarabuco', 'Padilla', 'Villa Serrano', 'Tomina'],
+            'Beni' => ['Trinidad', 'Santa Ana del Yacuma', 'Riberalta','Guayaramerín', 'Rurrenabaque', 'San Borja', 'Reyes', 'Santa Rosa'],
+            'Pando' => ['Cobija', 'Porvenir', 'Puerto Rico', 'Bella Vista','Santa Rosa del Abuná', 'Filadelfia', 'Villa Busch'],
+            
         ];
 
         foreach ($states as $state => $cities) {
