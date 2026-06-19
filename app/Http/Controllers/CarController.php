@@ -106,9 +106,10 @@ class CarController extends Controller
 
     public function search(Request $request)
     {
-        $query = Car::select('cars.*') // needs for joins
-            ->wherePast('published_at') //::where('published_at', '<', now()
-            ->orderBy('published_at', 'desc') // ->latest('published_at')            
+        $query = Car::select('cars.*')
+            ->wherePast('published_at')
+            ->where('is_approved', true)
+            ->orderBy('published_at', 'desc')
             ->filter(request()->only(['maker_id', 'model_id', 'state_id', 'city_id', 'car_type_id', 'fuel_type_id', 'price_from', 'price_to', 'year_from', 'year_to', 'mileage', 'sort']));
         
         $cars = $query->paginate(12)->withQueryString();

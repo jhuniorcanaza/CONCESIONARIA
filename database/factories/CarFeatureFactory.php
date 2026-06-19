@@ -5,20 +5,11 @@ namespace Database\Factories;
 use App\Models\Car;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CarFeature>
- */
 class CarFeatureFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            // 'car_id' => Car::inRandomOrder()->first()->id,
             'abs' => $this->faker->boolean(),
             'air_conditioning' => $this->faker->boolean(),
             'power_windows' => $this->faker->boolean(),

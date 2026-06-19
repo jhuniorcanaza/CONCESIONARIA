@@ -7,19 +7,11 @@ use Illuminate\Validation\Rule;
 
 class CarRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -39,7 +31,15 @@ class CarRequest extends FormRequest
             'phone' => ['required', 'string', 'max:45'],
             'description' => ['nullable', 'string'],
             'published_at' => ['boolean'],
-            
+
+            'body_type' => ['nullable', 'string', 'max:100'],
+            'drive_type' => ['nullable', 'string', 'max:100'],
+            'engine_cc' => ['nullable', 'integer', 'min:0'],
+            'bike_type' => ['nullable', 'string', 'max:100'],
+            'start_type' => ['nullable', 'string', 'max:100'],
+            'road_type' => ['nullable', 'string', 'max:100'],
+            'machinery_type' => ['nullable', 'string', 'max:100'],
+
             'abs' => ['boolean'],
             'air_conditioning' => ['boolean'],
             'power_windows' => ['boolean'],
@@ -51,11 +51,10 @@ class CarRequest extends FormRequest
             'heated_seats' => ['boolean'],
             'climate_control' => ['boolean'],
             'rear_parking_sensors' => ['boolean'],
-            'leather_seats' => ['boolean'],            
-            
+            'leather_seats' => ['boolean'],
+
             'images' => ['required', 'array', 'max:10'],
-            // 'images.*' => ['image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
-            'images.*' => ['string'], // Dropzone.js will send the image as a path
+            'images.*' => ['string'],
         ];
     }
 }

@@ -33,7 +33,15 @@ class Car extends EloquentModel
         'published_at',
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
+        'body_type',
+        'drive_type',
+        'engine_cc',
+        'bike_type',
+        'start_type',
+        'road_type',
+        'machinery_type',
+        'is_approved'
     ];
 
     // protected $guarages = ['user_id'];
@@ -118,6 +126,11 @@ class Car extends EloquentModel
     public function getTitleAttribute(): string
     {
         return "{$this->maker->name} {$this->model->name} - {$this->year}";
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
     }
 
     public function scopeFilter($query, array $filters)
