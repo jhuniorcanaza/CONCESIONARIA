@@ -169,13 +169,13 @@
             <div class="row">
               <div class="col">
                 <x-ui.form-group name="state_id" label="State/Region">
-                  <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="State/Region" :filtered="old('state_id')" />
-                </x-ui.form-group>
+                  <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="State/Regio" :filtered="old('state_id')" />
+                </x-ui.form-group>                
               </div>
               <div class="col">
                 <x-ui.form-group name="city_id" label="City">
                   <x-ui.search-select id="citySelect" name="city_id" :elements="$cities" title="City" parent="state_id" :filtered="old('city_id')" />
-                </x-ui.form-group>
+                </x-ui.form-group>                
               </div>
             </div>
 
