@@ -145,6 +145,19 @@
                 <span class="car-details-phone-view">view full number</span>
               </a>
 
+              {{-- WhatsApp --}}
+              @if($car->phone)
+                <a href="https://wa.me/591{{ preg_replace('/\D/', '', $car->phone) }}?text=Hola,%20estoy%20interesado%20en%20el%20vehículo%20{{ rawurlencode($car->title) }}%20que%20vi%20en%20ruedas.store." 
+                   target="_blank" 
+                   class="btn-whatsapp flex items-center justify-center gap-1 my-medium" 
+                   style="background-color: #25D366; color: white; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold; text-align: center;">
+                   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display: inline-block; vertical-align: middle;">
+                       <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 001.37 5.05L2 22l5.145-1.348a9.92 9.92 0 004.858 1.258h.004c5.507 0 9.99-4.478 9.99-9.984a9.96 9.96 0 00-2.925-7.063A9.91 9.91 0 0012.012 2zm5.794 14.156c-.249.703-1.442 1.373-1.986 1.458-.49.076-1.127.14-3.277-.75-2.748-1.137-4.512-3.93-4.65-4.113-.136-.183-1.109-1.472-1.109-2.807 0-1.336.702-1.993.95-2.259.248-.266.545-.333.727-.333h.519c.165 0 .386-.062.595.44.209.503.719 1.75.782 1.879.062.128.104.278.018.448-.086.17-1.282.898-1.282.898s-.17.114-.07.288c.097.172.434.717.93 1.16.638.57 1.173.748 1.338.834.165.085.259.07.356-.04.097-.11.413-.48.523-.647.109-.168.22-.14.372-.084.152.056.966.455 1.132.538.165.084.276.126.317.197.042.072.042.413-.207 1.117z"/>
+                   </svg>
+                   Contactar por WhatsApp
+                </a>
+              @endif
+
               <br /><hr />
 
               @can('update', $car)

@@ -1,8 +1,8 @@
-<x-app-layout title="Create new car">
+<x-app-layout title="Editar Vehículo">
   <main>
     <div class="container-small">
 
-      <h1 class="car-details-page-title">Edit car</h1>
+      <h1 class="car-details-page-title">Editar vehículo</h1>
 
       <form
         id="carForm"
@@ -20,20 +20,20 @@
 
             <div class="row">
               <div class="col">
-                <x-ui.form-group name="maker_id" label="Maker">
-                  <x-ui.search-select id="makerSelect" name="maker_id" :elements="$makers" title="Maker" :filtered="old('maker_id', $car->maker_id)" />
+                <x-ui.form-group name="maker_id" label="Marca">
+                  <x-ui.search-select id="makerSelect" name="maker_id" :elements="$makers" title="Marca" :filtered="old('maker_id', $car->maker_id)" />
                 </x-ui.form-group>
               </div>
 
               <div class="col">
-                <x-ui.form-group name="model_id" label="Model">
-                  <x-ui.search-select id="modelSelect" name="model_id" :elements="$models" title="Model" parent="maker_id" :filtered="old('model_id', $car->model_id)" />
+                <x-ui.form-group name="model_id" label="Modelo">
+                  <x-ui.search-select id="modelSelect" name="model_id" :elements="$models" title="Modelo" parent="maker_id" :filtered="old('model_id', $car->model_id)" />
                 </x-ui.form-group>
               </div>
 
               <div class="col">
-                <x-ui.form-group name="year" label="Year">
-                  <input type="number" name="year" placeholder="Year" value="{{ old('year', $car->year) }}"/>
+                <x-ui.form-group name="year" label="Año">
+                  <input type="number" name="year" placeholder="Año" value="{{ old('year', $car->year) }}"/>
                 </x-ui.form-group>
               </div>
             </div>
@@ -56,24 +56,24 @@
 
             <div class="row">
               <div class="col">
-                <x-ui.form-group name="price" label="Price">
-                  <input type="number" name="price" placeholder="Price" value="{{ old('price', $car->price) }}"/>
+                <x-ui.form-group name="price" label="Precio (USD)">
+                  <input type="number" name="price" placeholder="Precio" value="{{ old('price', $car->price) }}"/>
                 </x-ui.form-group>
               </div>
               <div class="col">
-                <x-ui.form-group name="vin" label="Vin Code">
-                  <input name="vin" placeholder="Vin Code" value="{{ old('vin', $car->vin) }}"/>
+                <x-ui.form-group name="vin" label="Número de Chasis (VIN)">
+                  <input name="vin" placeholder="Número de Chasis (VIN)" value="{{ old('vin', $car->vin) }}"/>
                 </x-ui.form-group>
               </div>
             </div>
 
             {{-- Mileage / Horas de uso (label dinámico) --}}
-            <x-ui.form-group name="mileage" label="Kilometraje (Km)">
+            <x-ui.form-group name="mileage">
               <template x-if="carTypeId && typeNames[carTypeId] === 'Maquinaria Pesada'">
-                <span style="display: block; margin-bottom: 4px; font-weight: 500;">Horas de uso</span>
+                <label class="form-label">Horas de uso</label>
               </template>
               <template x-if="!carTypeId || typeNames[carTypeId] !== 'Maquinaria Pesada'">
-                <span style="display: block; margin-bottom: 4px; font-weight: 500;">Kilometraje (Km)</span>
+                <label class="form-label">Kilometraje (Km)</label>
               </template>
               <input name="mileage" placeholder="0" value="{{ old('mileage', $car->mileage) }}"/>
             </x-ui.form-group>
@@ -169,42 +169,44 @@
               </div>
             </template>
 
-            <x-ui.form-group name="fuel_type_id" label="Fuel Type">
+            <x-ui.form-group name="fuel_type_id" label="Tipo de Combustible">
               <x-ui.inline-radio name="fuel_type_id" :elements="$fuelTypes" :selected="old('fuel_type_id', $car->fuel_type_id)" />
             </x-ui.form-group>
 
             <div class="row">
               <div class="col">
-                <x-ui.form-group name="state_id" label="State/Region">
-                  <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="State/Regio" :filtered="old('state_id', $car->city->state_id)" />
+                <x-ui.form-group name="state_id" label="Departamento">
+                  <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="Departamento" :filtered="old('state_id', $car->city->state_id)" />
                 </x-ui.form-group>
               </div>
               <div class="col">
-                <x-ui.form-group name="city_id" label="City">
-                  <x-ui.search-select id="citySelect" name="city_id" :elements="$cities" title="City" parent="state_id" :filtered="old('city_id', $car->city_id)" />
+                <x-ui.form-group name="city_id" label="Ciudad o Municipio">
+                  <x-ui.search-select id="citySelect" name="city_id" :elements="$cities" title="Ciudad o Municipio" parent="state_id" :filtered="old('city_id', $car->city_id)" />
                 </x-ui.form-group>
               </div>
             </div>
 
             <div class="row">
               <div class="col">
-                <x-ui.form-group name="address" label="Address">
-                  <input name="address" placeholder="Address" value="{{ old('address', $car->address) }}"/>
+                <x-ui.form-group name="address" label="Dirección">
+                  <input name="address" placeholder="Dirección" value="{{ old('address', $car->address) }}"/>
                 </x-ui.form-group>
               </div>
 
               <div class="col">
-                <x-ui.form-group name="phone" label="Phone">
-                  <input name="phone" placeholder="Phone" value="{{ old('phone', $car->phone) }}"/>
+                <x-ui.form-group name="phone" label="Teléfono de Contacto">
+                  <input name="phone" placeholder="Teléfono" value="{{ old('phone', $car->phone) }}"/>
                 </x-ui.form-group>
               </div>
             </div>
 
             {{-- Features (checkboxes) condicionales --}}
             <div class="form-group">
-              <h3>Características</h3>
+              <template x-if="carTypeId">
+                <h3>Características</h3>
+              </template>
 
-              <template x-if="!carTypeId || typeNames[carTypeId] === 'Auto'">
+              <template x-if="carTypeId && typeNames[carTypeId] === 'Auto'">
                 <div class="row">
                   <div class="col">
                     <x-ui.checkbox name="air_conditioning" label="Aire Acondicionado" :selected="old('air_conditioning', $car->features->air_conditioning)" />
@@ -259,7 +261,7 @@
           </div>
 
           <div class="form-images">
-            <x-ui.form-group name="images" label="Images">
+            <x-ui.form-group name="images" label="Imágenes">
               <x-image-upload :images="$car->images ?? []"/>
             </x-ui.form-group>
           </div>

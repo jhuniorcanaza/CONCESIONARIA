@@ -36,7 +36,7 @@
             />
           </svg>
 
-          Add new Car
+          Agregar Vehículo
         </a>
 
         @auth
@@ -63,18 +63,18 @@
             </a>
             <ul class="submenu">
               <li>
-                <a href="{{ route('car.index') }}">My Cars</a>
+                <a href="{{ route('car.index') }}">Mis Anuncios</a>
               </li>
               <li>
-                <a href="{{ route('car.watchlist') }}">My Favourite Cars</a>
+                <a href="{{ route('car.watchlist') }}">Mis Favoritos</a>
               </li>
               <li>
-                <a href="{{ route('user.profile') }}">Profile</a>
+                <a href="{{ route('user.profile') }}">Mi Perfil</a>
               </li>
               <li>
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf
-                  <button type="submit">Logout</button>
+                  <button type="submit">Cerrar Sesión</button>
                 </form>
               </li>
             </ul>
@@ -98,7 +98,7 @@
               />
             </svg>
 
-            Signup
+            Registrarse
           </a>
           <a href="{{ route('login') }}" class="btn btn-login flex items-center">
             <svg
@@ -112,7 +112,7 @@
                 fill=""
               />
             </svg>
-            Login
+            Iniciar Sesión
           </a>
         @endguest
 

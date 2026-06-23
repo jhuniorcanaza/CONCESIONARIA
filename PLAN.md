@@ -105,6 +105,32 @@ Este documento sirve como guía metodológica y de requerimientos para los pasan
 
 ---
 
+## 📅 PLANIFICACIÓN DE TAREAS PARA MAÑANA (FASE 2)
+
+### 🌟 Módulo 4 & 9: Anuncios Destacados y Redes Sociales — **Asignado a: Javier**
+*   **Objetivos**:
+    1.  **Destacados**: Crear una migración para agregar la columna `is_featured` (boolean, default false) a la tabla `cars`. Modificar la consulta de búsqueda y el index del Home para que los vehículos destacados (`is_featured = true`) se muestren de primeros con prioridad.
+    2.  **Contador de Visitas**: Agregar un contador simple de visitas en cada anuncio (`views_count` en la tabla `cars`) que incremente cada vez que un usuario ingrese a ver el detalle de un vehículo.
+    3.  **Compartir**: Añadir botones de "Compartir en Facebook" y "Compartir en Twitter" en la barra lateral del detalle del vehículo.
+
+### 🛡️ Módulo 6: Panel de Administración y Moderación de Anuncios — **Asignado a: Alejandro**
+*   **Objetivos**:
+    1.  Crear una ruta protegida `/admin/moderation` accesible únicamente para usuarios con el rol `admin`.
+    2.  Diseñar un panel simple que liste todas las publicaciones pendientes de aprobación (`is_approved = false`).
+    3.  Agregar un botón de "Aprobar Anuncio" que haga un envío POST o PUT para cambiar `is_approved` a `true` sin recargar la página completa o mediante un redireccionamiento limpio.
+
+### 🖼️ Módulo 7: Gestión Avanzada de Imágenes en Edición — **Asignado a: Jhunior**
+*   **Objetivos**:
+    1.  Permitir que el usuario, al editar un vehículo (`car/edit`), pueda ver las imágenes que ya tiene subidas y tenga la opción de eliminar imágenes específicas de forma individual mediante un botón "Eliminar" con confirmación.
+    2.  Asegurar que el archivo físico se elimine del disco (`Storage::disk('public')->delete(...)`) y su registro respectivo en la tabla `car_images`.
+
+### 🗺️ Módulo 8: Geolocalización GPS e Integración de Dirección — **Asignado a: Roger**
+*   **Objetivos**:
+    1.  En los formularios de creación y edición, añadir un botón de "Obtener Ubicación Actual" al lado del campo Dirección (`address`).
+    2.  Utilizar la API de Geolocalización nativa de JavaScript (`navigator.geolocation.getCurrentPosition`) para rellenar automáticamente las coordenadas o la dirección sugerida en el campo.
+
+---
+
 ## 💡 Plantillas y Patrones de Código del Proyecto (Blueprints)
 
 Para mantener la consistencia del código del repositorio, los pasantes deben guiarse estrictamente por los siguientes archivos existentes en el proyecto como plantilla de trabajo:
@@ -114,3 +140,4 @@ Para mantener la consistencia del código del repositorio, los pasantes deben gu
 3.  **Para los formularios de petición y validación de inputs**: Usar `app/Http/Requests/CarRequest.php` como base para añadir las nuevas reglas.
 4.  **Para las políticas de seguridad y restricciones de acceso**: Seguir el patrón de Laravel Policies en `app/Policies/CarPolicy.php`.
 5.  **Para los componentes visuales Blade reutilizables**: Analizar `resources/views/components/` (por ejemplo, `search-form.blade.php` e `image-upload.blade.php`).
+

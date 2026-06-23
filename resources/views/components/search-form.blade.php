@@ -95,12 +95,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="mb-medium">State</label>
-                <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="Departamento  :filtered="$filtered['state_id'] ?? null" />
+                <label class="mb-medium">Departamento</label>
+                <x-ui.search-select id="stateSelect" name="state_id" :elements="$states" title="Departamento" :filtered="$filtered['state_id'] ?? null" />
             </div>
             <div class="form-group">
-                <label class="mb-medium">City</label>
-                <x-ui.search-select id="citySelect" name="city_id" :elements="$cities" title="City" parent="state_id"  :filtered="$filtered['city_id'] ?? null" />
+                <label class="mb-medium">Ciudad o Municipio</label>
+                <x-ui.search-select id="citySelect" name="city_id" :elements="$cities" title="Ciudad o Municipio" parent="state_id"  :filtered="$filtered['city_id'] ?? null" />
             </div>
             <div class="form-group">
                 <label class="mb-medium">Fuel Type</label>
