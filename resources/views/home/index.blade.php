@@ -1,121 +1,194 @@
-<x-app-layout title="Homepage">
+<x-app-layout title="Inicio">
 
-    <!-- Home Slider -->
+    <!-- Slider Principal -->
     <section class="hero-slider">
-        <!-- Carousel wrapper -->
         <div class="hero-slides">
-          <!-- Item 1 -->
-          <div class="hero-slide">
-            <div class="container">
-              <div class="slide-content">
-                <h1 class="hero-slider-title">
-                  Buy <strong>The Best Cars</strong> <br />
-                  in your region
-                </h1>
-                <div class="hero-slider-content">
-                  <p>
-                    Use powerful search tool to find your desired cars based on
-                    multiple search criteria: Maker, Model, Year, Price Range, Car
-                    Type, etc...
-                  </p>
-  
-                  <button onclick="location.href='{{ route('car.search') }}'" class="btn btn-hero-slider">Find the car</button>
+            @if ($carouselCars->isNotEmpty())
+                @foreach ($carouselCars as $car)
+                    <div class="hero-slide">
+
+                        {{-- Imagen como fondo completo --}}
+                        <div class="hero-slide-image">
+                            <x-img
+                                src="{{ $car->primaryImage->image_path }}"
+                                alt="{{ $car->maker->name }} {{ $car->model->name }}"
+                                class="img-responsive"
+                            />
+                        </div>
+
+                        {{-- Overlay oscuro --}}
+                        <div class="hero-slide-overlay"></div>
+
+                        {{-- Contenido centrado --}}
+                        <div class="container hero-slide-inner">
+                            <div class="hero-slide-copy">
+                                
+                                <h2 class="hero-slide-title">{{ $car->year }} {{ Str::upper($car->maker->name) }} {{ Str::upper($car->model->name) }}</h2>
+                                <p class="hero-slide-subtitle">{{ \Illuminate\Support\Str::limit($car->description ?? 'Sin descripción disponible', 100) }}</p>
+
+                                <div class="hero-slide-price-section">
+                                    <p class="hero-slide-price">${{ number_format($car->price, 0, '.', ',') }}</p>
+                                </div>
+
+                                <div class="hero-slide-actions">
+                                    <button onclick="location.href='{{ route('car.show', $car) }}'" class="btn btn-hero-primary">
+                                        Descubrir modelo
+                                    </button>
+                                    <button onclick="location.href='{{ route('car.search') }}'" class="btn btn-hero-secondary">
+                                        Ver catálogo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                @endforeach
+            @else
+                <div class="hero-slide">
+                    <div class="hero-slide-overlay" style="background:#111;opacity:1;"></div>
+                    <div class="container hero-slide-inner">
+                        <div class="hero-slide-copy">
+                            <span class="hero-label">Próximamente</span>
+                            <h2 class="hero-slide-title">Nuevos ingresos en camino</h2>
+                            <p class="hero-slide-subtitle">Activa la opción en tu catálogo para mostrar autos en portada.</p>
+                            <div class="hero-slide-actions">
+                                <button onclick="location.href='{{ route('car.search') }}'" class="btn btn-hero-primary">Buscar autos</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="slide-image">
-                <img src="img/car-png-39071.png" alt="" class="img-responsive" />
-              </div>
+            @endif
+
+            {{-- Indicadores --}}
+            <div class="hero-slide-indicators">
+                @if ($carouselCars->isNotEmpty())
+                    @foreach ($carouselCars as $index => $car)
+                        <div class="indicator-dot {{ $index === 0 ? 'active' : '' }}"></div>
+                    @endforeach
+                @else
+                    <div class="indicator-dot active"></div>
+                @endif
             </div>
-          </div>
-          <!-- Item 2 -->
-          <div class="hero-slide">
-            <div class="flex container">
-              <div class="slide-content">
-                <h2 class="hero-slider-title">
-                  Do you want to <br />
-                  <strong>sell your car?</strong>
-                </h2>
-                <div class="hero-slider-content">
-                  <p>
-                    Submit your car in our user friendly interface, describe it,
-                    upload photos and the perfect buyer will find it...
-                  </p>
-  
-                  <button onclick="location.href='{{ route('car.search') }}'" class="btn btn-hero-slider">Add Your Car</button>
-                </div>
-              </div>
-              <div class="slide-image">
-                <img src="img/car-png-39071.png" alt="" class="img-responsive" />
-              </div>
-            </div>
-          </div>
-          <button type="button" class="hero-slide-prev">
-            <svg
-              style="width: 18px"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 1 1 5l4 4"
-              />
-            </svg>
-            <span class="sr-only">Previous</span>
-          </button>
-          <button type="button" class="hero-slide-next">
-            <svg
-              style="width: 18px"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 9 4-4-4-4"
-              />
-            </svg>
-            <span class="sr-only">Next</span>
-          </button>
+
+            {{-- Flechas --}}
+            <button type="button" class="hero-slide-prev">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <button type="button" class="hero-slide-next">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
         </div>
     </section>
-    <!--/ Home Slider -->  
-    
+    <!--/ Slider Principal -->
+
     <main>
 
-        <!-- Find a car form -->
+        <!-- Buscador -->
         <section class="find-a-car">
-          <div class="container">
-            <x-search-form />
-          </div>
+            <div class="container">
+                <x-search-form />
+            </div>
         </section>
-        <!--/ Find a car form -->
 
-        <!-- New Cars -->
+        <!-- Autos Destacados -->
         <section>
             <div class="container">
-            <h2>Latest Added Cars</h2>
-            <div class="car-items-listing">
+                    <div class="section-heading">
+                        <h2>Autos Destacados</h2>
+                    </div>
+                    <div class="car-items-listing featured-listing" id="featured-listing">
+                        @forelse ($featuredCars as $index => $car)
+                            <div class="featured-item {{ $index >= 5 ? 'featured-hidden' : '' }}" data-index="{{ $index }}">
+                                <x-car-item :$car />
+                            </div>
+                        @empty
+                            <p style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #999;">
+                                No hay autos destacados disponibles en este momento.
+                            </p>
+                        @endforelse
+                    </div>
 
-                @foreach ($cars as $car)                    
-                    <x-car-item :$car />
-                @endforeach
+                    @if ($featuredCars->count() > 5)
+                        <div class="featured-controls">
+                            <button id="featured-show-more" class="btn btn-hero-primary">Ver más</button>
+                        </div>
+                    @endif
+                </div>
+        </section>
 
-            </div>
-            
-            {{ $cars->links() }}
+        <!-- Últimos Añadidos -->
+        <section>
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Últimos Añadidos</h2>
+                </div>
+                <div class="car-items-listing">
+                    @foreach ($cars as $car)
+                        <x-car-item :$car />
+                    @endforeach
+                </div>
 
+                {{ $cars->links() }}
             </div>
         </section>
-        <!--/ New Cars -->
 
     </main>
-</x-app-layout>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const btn = document.getElementById('featured-show-more');
+        const container = document.getElementById('featured-listing');
+        if (!btn || !container) return;
+
+        // estado inicial: 'more' permite revelar en incrementos, 'less' colapsa
+        btn.dataset.state = 'more';
+
+        btn.addEventListener('click', function(){
+            const hidden = Array.from(document.querySelectorAll('.featured-listing .featured-hidden'));
+
+            if (btn.dataset.state === 'less') {
+                // colapsar a 5 primeros
+                const items = Array.from(document.querySelectorAll('.featured-listing .featured-item'));
+                items.forEach((el, idx) => {
+                    if (idx >= 5) el.classList.add('featured-hidden');
+                });
+                btn.textContent = 'Ver más';
+                btn.dataset.state = 'more';
+                // desplazar al inicio de la sección
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
+
+            // modo 'more': revelar siguientes 5
+            if (hidden.length === 0) {
+                // si ya no hay ocultos, cambiar a 'less'
+                btn.textContent = 'Ver menos';
+                btn.dataset.state = 'less';
+                return;
+            }
+
+            const next = hidden.slice(0, 5);
+            next.forEach(el => el.classList.remove('featured-hidden'));
+
+            // si ya no quedan ocultos, cambiar botón a 'Ver menos'
+            if (document.querySelectorAll('.featured-listing .featured-hidden').length === 0) {
+                btn.textContent = 'Ver menos';
+                btn.dataset.state = 'less';
+            } else {
+                btn.textContent = 'Ver más';
+                btn.dataset.state = 'more';
+            }
+
+            // desplazar suavemente al primer item mostrado
+            if (next.length) {
+                next[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    });
+    </script>
+
+    </x-app-layout>

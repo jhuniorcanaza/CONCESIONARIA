@@ -20,7 +20,7 @@ class UpdateCarAction
                 $carData = Arr::only($data, [
                     'maker_id', 'model_id', 'year', 'price', 'vin', 'mileage',
                     'car_type_id', 'fuel_type_id', 'city_id', 'address', 'phone',
-                    'description', 'published_at',
+                    'description', 'published_at', 'is_featured', 'show_in_carousel',
                     'body_type', 'drive_type', 'engine_cc', 'bike_type',
                     'start_type', 'road_type', 'machinery_type',
                 ]);

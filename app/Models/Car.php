@@ -41,7 +41,9 @@ class Car extends EloquentModel
         'start_type',
         'road_type',
         'machinery_type',
-        'is_approved'
+        'is_approved',
+        'is_featured',
+        'show_in_carousel'
     ];
 
     // protected $guarages = ['user_id'];

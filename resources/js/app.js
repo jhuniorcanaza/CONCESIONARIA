@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   const initSlider = () => {
     const slides = document.querySelectorAll(".hero-slide");
-    let currentIndex = 0; // Track the current slide
+    const indicators = document.querySelectorAll(".indicator-dot");
+    let currentIndex = 0;
     const totalSlides = slides.length;
+    let autoRotateInterval;
 
     function moveToSlide(n) {
       slides.forEach((slide, index) => {
@@ -13,40 +15,48 @@ document.addEventListener("DOMContentLoaded", function () {
           slide.classList.remove("active");
         }
       });
+      
+      indicators.forEach((dot, index) => {
+        if (n === index) {
+          dot.classList.add("active");
+        } else {
+          dot.classList.remove("active");
+        }
+      });
+      
       currentIndex = n;
+      clearInterval(autoRotateInterval);
+      startAutoRotate();
     }
 
-    // Function to go to the next slide
     function nextSlide() {
-      if (currentIndex === totalSlides - 1) {
-        moveToSlide(0); // Go to the first slide if we're at the last
-      } else {
-        moveToSlide(currentIndex + 1);
-      }
+      moveToSlide(currentIndex === totalSlides - 1 ? 0 : currentIndex + 1);
     }
 
-    // Function to go to the previous slide
     function prevSlide() {
-      if (currentIndex === 0) {
-        moveToSlide(totalSlides - 1); // Go to the last slide if we're at the first
-      } else {
-        moveToSlide(currentIndex - 1);
-      }
+      moveToSlide(currentIndex === 0 ? totalSlides - 1 : currentIndex - 1);
     }
 
-    // Example usage with buttons
-    // Assuming you have buttons with classes `.next` and `.prev` for navigation
+    function startAutoRotate() {
+      autoRotateInterval = setInterval(nextSlide, 7000);
+    }
+
     const carouselNextButton = document.querySelector(".hero-slide-next");
     if (carouselNextButton) {
       carouselNextButton.addEventListener("click", nextSlide);
     }
+    
     const carouselPrevButton = document.querySelector(".hero-slide-prev");
     if (carouselPrevButton) {
       carouselPrevButton.addEventListener("click", prevSlide);
     }
 
-    // Initialize the slider
+    indicators.forEach((dot, index) => {
+      dot.addEventListener("click", () => moveToSlide(index));
+    });
+
     moveToSlide(0);
+    startAutoRotate();
   };
 
   const initImagePicker = () => {

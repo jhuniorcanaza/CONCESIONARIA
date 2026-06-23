@@ -711,6 +711,18 @@ main {
   gap: 1rem;
 }
 
+/* Estilos para la lista de destacados con botón "Ver más" */
+.featured-listing .featured-item {
+  /* el componente x-car-item hereda tamaños; el wrapper ayuda a ocultar items */
+}
+.featured-listing .featured-hidden {
+  display: none !important;
+}
+.featured-controls {
+  text-align: center;
+  margin-top: 1rem;
+}
+
 .car-item-title {
   margin: 0.75rem 0;
   font-size: 16px;

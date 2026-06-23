@@ -31,6 +31,8 @@ class CarRequest extends FormRequest
             'phone' => ['required', 'string', 'max:45'],
             'description' => ['nullable', 'string'],
             'published_at' => ['boolean'],
+            'is_featured' => ['boolean'],
+            'show_in_carousel' => ['boolean'],
 
             'body_type' => ['nullable', 'string', 'max:100'],
             'drive_type' => ['nullable', 'string', 'max:100'],

@@ -205,6 +205,8 @@ class DatabaseSeeder extends Seeder
                     ), 
                 'favoriteCars')
             ->create();
-        
+
+        Car::inRandomOrder()->limit(5)->update(['is_featured' => true]);
+        Car::inRandomOrder()->limit(5)->update(['show_in_carousel' => true]);
     }
 }
