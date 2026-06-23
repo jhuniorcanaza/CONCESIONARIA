@@ -105,29 +105,32 @@ Este documento sirve como guía metodológica y de requerimientos para los pasan
 
 ---
 
-## 📅 PLANIFICACIÓN DE TAREAS PARA MAÑANA (FASE 2)
+## 📅 PLANIFICACIÓN DE TAREAS PARA LA FASE DE LANZAMIENTO (FASE 2)
 
-### 🌟 Módulo 4 & 9: Anuncios Destacados y Redes Sociales — **Asignado a: Javier**
-*   **Objetivos**:
-    1.  **Destacados**: Crear una migración para agregar la columna `is_featured` (boolean, default false) a la tabla `cars`. Modificar la consulta de búsqueda y el index del Home para que los vehículos destacados (`is_featured = true`) se muestren de primeros con prioridad.
-    2.  **Contador de Visitas**: Agregar un contador simple de visitas en cada anuncio (`views_count` en la tabla `cars`) que incremente cada vez que un usuario ingrese a ver el detalle de un vehículo.
-    3.  **Compartir**: Añadir botones de "Compartir en Facebook" y "Compartir en Twitter" en la barra lateral del detalle del vehículo.
+### 🌟 Módulo A: Sistema de Destacados, Banners Publicitarios y Estadísticas — **Asignado a: Javier**
+*   **Descripción del Módulo**: Javier debe programar la monetización y la visualización de anuncios premium.
+*   **Objetivos Específicos**:
+    1.  **Esquema de Base de Datos**: Crear una migración que agregue `is_featured` (boolean, default false), `is_featured_until` (datetime, null) y `views_count` (integer, default 0) a la tabla `cars`.
+    2.  **Prioridad en Consultas**: Modificar la consulta de búsqueda (`scopeFilter` en `Car.php`) y la consulta del Home (`HomeController`) para que los vehículos marcados como destacados y cuya fecha no haya expirado se muestren al principio de cualquier resultado, con prioridad sobre los normales.
+    3.  **Carrusel Superior en Portada**: Agregar una sección premium tipo slider o carrusel en la parte superior del Home llamada **"Autoventas Recomendadas"** que muestre únicamente los anuncios destacados.
+    4.  **Métricas del Vendedor**: En el detalle de cada vehículo (`show.blade.php`), añadir un contador visual del número de visitas con un icono de ojo (👁️). Crear un Middleware para incrementar `views_count` de manera única por sesión de usuario para evitar manipulaciones.
+    5.  **Botones de Compartir**: Integrar un widget flotante o botones en la barra de contacto del vehículo para compartir en redes sociales (Facebook, Twitter y WhatsApp).
 
-### 🛡️ Módulo 6: Panel de Administración y Moderación de Anuncios — **Asignado a: Alejandro**
-*   **Objetivos**:
-    1.  Crear una ruta protegida `/admin/moderation` accesible únicamente para usuarios con el rol `admin`.
-    2.  Diseñar un panel simple que liste todas las publicaciones pendientes de aprobación (`is_approved = false`).
-    3.  Agregar un botón de "Aprobar Anuncio" que haga un envío POST o PUT para cambiar `is_approved` a `true` sin recargar la página completa o mediante un redireccionamiento limpio.
+### 🛡️ Módulo B: Panel de Administración, Moderación y Gestión de Roles — **Asignado a: Alejandro**
+*   **Descripción del Módulo**: Alejandro debe programar todo el backend y frontend administrativo para la moderación del sitio.
+*   **Objetivos Específicos**:
+    1.  **Middleware de Seguridad**: Implementar un middleware `AdminMiddleware` que verifique que el usuario autenticado tiene el rol `admin`.
+    2.  **Dashboard de Moderación**: Crear un panel de control bajo la ruta `/admin/moderation` accesible únicamente para administradores.
+    3.  **Listado de Aprobaciones**: Diseñar una tabla dinámica en el panel administrativo que liste los anuncios pendientes de aprobación (`is_approved = false`). El administrador debe poder aprobarlos con un botón (usando AJAX/Fetch para una experiencia interactiva sin recarga de página completa).
+    4.  **Gestión de Usuarios**: En el mismo panel, agregar una pestaña para visualizar a todos los usuarios registrados, pudiendo cambiar el rol de un usuario (`client` $\leftrightarrow$ `admin`) o desactivar cuentas que incumplan las reglas del portal.
+    5.  **Reporte Estadístico**: Mostrar en el panel un gráfico o contadores rápidos con: Total de anuncios del sitio, total por categoría (Autos, Motocicletas, Maquinaria) y total de usuarios registrados.
 
-### 🖼️ Módulo 7: Gestión Avanzada de Imágenes en Edición — **Asignado a: Jhunior**
-*   **Objetivos**:
-    1.  Permitir que el usuario, al editar un vehículo (`car/edit`), pueda ver las imágenes que ya tiene subidas y tenga la opción de eliminar imágenes específicas de forma individual mediante un botón "Eliminar" con confirmación.
-    2.  Asegurar que el archivo físico se elimine del disco (`Storage::disk('public')->delete(...)`) y su registro respectivo en la tabla `car_images`.
-
-### 🗺️ Módulo 8: Geolocalización GPS e Integración de Dirección — **Asignado a: Roger**
-*   **Objetivos**:
-    1.  En los formularios de creación y edición, añadir un botón de "Obtener Ubicación Actual" al lado del campo Dirección (`address`).
-    2.  Utilizar la API de Geolocalización nativa de JavaScript (`navigator.geolocation.getCurrentPosition`) para rellenar automáticamente las coordenadas o la dirección sugerida en el campo.
+### 🗺️ Módulo C: Geolocalización GPS, Mapas Interactivos y Gestión de Fotos — **Asignado a: Roger**
+*   **Descripción del Módulo**: Roger debe programar la experiencia geográfica del usuario y la edición de multimedia.
+*   **Objetivos Específicos**:
+    1.  **Mapa Interactivo en Registro**: Integrar la librería gratuita **Leaflet.js** en los formularios de creación (`create.blade.php`) y edición (`edit.blade.php`). Al hacer clic sobre el mapa, se debe colocar un pin y utilizar un servicio de geocodificación inversa gratuito (Nominatim) para escribir automáticamente la dirección sugerida en el input `address`.
+    2.  **Mapa en el Detalle**: Renderizar en la página de detalle del vehículo (`show.blade.php`) un mapa interactivo simple centrado en las coordenadas guardadas del vendedor.
+    3.  **Edición y Eliminación Individual de Imágenes**: Desarrollar la lógica para que, en la vista de edición (`edit.blade.php`), el usuario pueda ver las imágenes previamente subidas y borrarlas de manera individual con un botón de "Eliminar Foto". Roger debe encargarse de eliminar el archivo físico del disco (`Storage::disk('public')->delete(...)`) y su registro en la base de datos de manera sincronizada.
 
 ---
 
