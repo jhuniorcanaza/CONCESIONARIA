@@ -1,4 +1,8 @@
 <x-app-layout title="Car Details">
+    @php
+        $currentUrl = rawurlencode(url()->current());
+        $shareText = rawurlencode("Mira este auto: {$car->title}");
+    @endphp
     <main>
         <div class="container">
           <h1 class="car-details-page-title">{{ $car->title }}</h1>
@@ -148,6 +152,17 @@
                 <span class="phone">{{ \Illuminate\Support\Str::mask($car->phone, '*', -3) }}</span>
                 <span class="car-details-phone-view">view full number</span>
               </a>
+
+              <br /><hr />
+
+              <div class="car-share-section">
+                <span class="car-share-label">Compartir este auto:</span>
+                <div class="car-share-buttons">
+                  <a href="https://www.facebook.com/sharer/sharer.php?u={{ $currentUrl }}&quote={{ $shareText }}" target="_blank" rel="noopener noreferrer" class="share-button share-facebook">Facebook</a>
+                  <a href="https://twitter.com/intent/tweet?text={{ $shareText }}%20{{ $currentUrl }}" target="_blank" rel="noopener noreferrer" class="share-button share-twitter">X</a>
+                  <a href="https://api.whatsapp.com/send?text={{ $shareText }}%20{{ $currentUrl }}" target="_blank" rel="noopener noreferrer" class="share-button share-whatsapp">WhatsApp</a>
+                </div>
+              </div>
 
               <br /><hr />
 
