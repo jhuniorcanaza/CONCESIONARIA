@@ -26,7 +26,8 @@ class User extends Authenticatable
         'google_id',
         'facebook_id',
         'avatar',
-        'role'
+        'role',
+        'is_active'
     ];
 
     public function isAdmin(): bool
