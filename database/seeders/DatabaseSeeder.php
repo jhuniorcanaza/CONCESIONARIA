@@ -13,6 +13,7 @@ use App\Models\Model;
 use App\Models\State;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -206,7 +207,21 @@ class DatabaseSeeder extends Seeder
                 'favoriteCars')
             ->create();
 
-        Car::inRandomOrder()->limit(5)->update(['is_featured' => true]);
-        Car::inRandomOrder()->limit(5)->update(['show_in_carousel' => true]);
+        $featuredDates = [
+            Carbon::yesterday()->toDateString(),
+            Carbon::today()->toDateString(),
+            Carbon::today()->addDay()->toDateString(),
+            Carbon::today()->addDays(2)->toDateString(),
+            Carbon::today()->addDays(3)->toDateString(),
+        ];
+
+        $featuredCars = Car::inRandomOrder()->limit(5)->get();
+        $featuredCars->each(function (Car $car, $index) use ($featuredDates) {
+            $car->update([
+                'is_featured' => true,
+                'show_in_carousel' => true,
+                'is_featured_until' => $featuredDates[$index],
+            ]);
+        });
     }
 }

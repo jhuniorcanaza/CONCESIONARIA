@@ -109,6 +109,10 @@ class CarController extends Controller
         $query = Car::select('cars.*')
             ->wherePast('published_at')
             ->where('is_approved', true)
+            ->orderByRaw("(
+                (is_featured = true OR show_in_carousel = true)
+                AND (is_featured_until IS NULL OR is_featured_until >= ?)
+            ) DESC", [now()->toDateString()])
             ->orderBy('published_at', 'desc')
             ->filter(request()->only(['maker_id', 'model_id', 'state_id', 'city_id', 'car_type_id', 'fuel_type_id', 'price_from', 'price_to', 'year_from', 'year_to', 'mileage', 'sort']));
         

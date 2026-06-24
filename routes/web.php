@@ -70,7 +70,9 @@ Route::controller(CarController::class)
 
     Route::get('/search', 'search')->name('search');
     Route::post('/get-phone/{car}', 'getPhone')->name('get-phone');
-    Route::get('/{car}', 'show')->name('show');
+    Route::get('/{car}', 'show')
+        ->name('show')
+        ->middleware(\App\Http\Middleware\CountCarViews::class);
 
   });
 

@@ -3,6 +3,10 @@
         <div class="container">
           <h1 class="car-details-page-title">{{ $car->title }}</h1>
           <div class="car-details-region">{{ $car->city->name }} - {{ $car->published_at }}</div>
+          <div class="car-details-views">
+            <span class="views-icon">Visualizaciones : </span>
+            <strong>{{ number_format($car->views_count) }}</strong>
+          </div>
           @if(!$car->is_approved)
             <div class="alert alert-warning">Este anuncio está pendiente de aprobación.</div>
           @endif
