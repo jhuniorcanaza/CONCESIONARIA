@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\FavoriteCarController;
 use App\Http\Controllers\HomeController;
@@ -82,4 +83,13 @@ Route::middleware('auth')->group(function () {
 
   Route::post('/favorite/toggle/{car}', [FavoriteCarController::class, 'toggle'])
     ->name('favorite.toggle');
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/moderation', [AdminController::class, 'moderation'])->name('moderation');
+    Route::post('/approve/{car}', [AdminController::class, 'approve'])->name('approve');
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::put('/users/{user}/role', [AdminController::class, 'updateRole'])->name('users.role');
+    Route::post('/users/{user}/toggle', [AdminController::class, 'toggleActive'])->name('users.toggle');
 });

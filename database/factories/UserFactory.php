@@ -32,6 +32,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'role' => 'client',
+            'is_active' => true,
             'avatar' => function () {
                     $url = 'https://picsum.photos/seed/' . rand(1, 1000) . '/640/480';
 

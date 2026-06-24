@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
         // Admin user
         if (!\App\Models\User::where('email', 'admin@ruedas.store')->exists()) {
             User::factory()
-                ->state(['name' => 'Admin', 'email' => 'admin@ruedas.store', 'role' => 'admin'])
+                ->state(['name' => 'Admin', 'email' => 'admin@ruedas.store', 'role' => 'admin', 'is_active' => true])
                 ->has(
                     Car::factory()->count(rand(5, 20))
                         ->hasFeatures()
